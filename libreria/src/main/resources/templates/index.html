@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Librería</title>
+  <!-- CSS Bootstrap -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="shortcut icon" th:href="@{/img/libro_logo.png}" />
+</head>
+
+<body>
+  <header>
+    <div class="container_header">
+      <span>Contacto:</span> +549 (261) 000 0000
+    </div>
+  </header>
+  <div class="contenedor_nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <img src="./img/libro_logo.png" alt="" width="40">
+        <a class="navbar-brand ps-2" href="/">Librería</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Libro
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/libro/registrolibro">Crear libro</a></li>
+                <li><a class="dropdown-item" href="/libro/lista-libros">Listar libros</a></li>
+                <!--<li><hr class="dropdown-divider"></li>-->
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Autor
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/autor/registro-autor">Crear autor</a></li>
+                <li><a class="dropdown-item" href="/autor/lista-autores">Listar autores</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Editorial
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/editorial/registro-editorial">Crear editorial</a></li>
+                <li><a class="dropdown-item" href="/editorial/lista-editoriales">Listar editoriales</a></li>
+              </ul>
+            </li>
+            
+          </ul>
+          <form th:action="@{/libro/librobuscado}" method="POST" class="d-flex">
+            <input class="form-control me-2" type="text" id="titulo" name="titulo" placeholder="Buscar" aria-label="Buscar">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>  
+  </div>
+
+  <div class="title">
+    <h1> BIENVENIDO A TU LIBRERIA</h1>
+  </div>
+
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="./img/flip1.jpg" class="d-block w-100" alt="flip1">
+      </div>
+      <div class="carousel-item">
+        <img src="./img/flip2.jpg" class="d-block w-100" alt="flip2">
+      </div>
+      <div class="carousel-item">
+        <img src="./img/flip3.jpg" class="d-block w-100" alt="flip3">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="container container-fluid">
+    <a th:href="@{/libro}" class="btn-libro">Libro</a>
+    <a th:href="@{/autor}" class="btn-libro">Autor</a>
+    <a th:href="@{/editorial}" class="btn-libro">Editorial</a>
+  </div>
+
+
+
+
+  <!-- JS Bootstrap -->
+  <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
