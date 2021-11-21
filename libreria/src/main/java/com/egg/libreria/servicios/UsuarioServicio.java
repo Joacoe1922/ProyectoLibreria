@@ -3,6 +3,8 @@ package com.egg.libreria.servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.egg.libreria.entidades.Usuario;
 import com.egg.libreria.errores.ErrorServicio;
 import com.egg.libreria.repositorios.UsuarioRepositorio;
@@ -17,6 +19,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -56,6 +60,11 @@ public class UsuarioServicio implements UserDetailsService {
             // GrantedAuthority p2 = new
             // SimpleGrantedAuthority("ROL_USUARIO_ADMINISTRADOR");
             // permisos.add(p2);
+
+            //Esto me permite guardar el OBJETO USUARIO LOG, para luego ser utilizado
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usuariosession", usuario);
 
             User user = new User(usuario.getMail(), usuario.getClave(), permisos);
             return user;

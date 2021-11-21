@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Librería</title>
+    <!-- CSS Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="shortcut icon" th:href="@{/img/libro_logo.png}" />
+</head>
+
+<body>
+    <header>
+        <div class="container_header">
+            <span>Contacto:</span> +549 (261) 000 0000
+        </div>
+    </header>
+    <div class="contenedor_nav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <img src="./img/libro_logo.png" alt="" width="40">
+                <a class="navbar-brand ps-2" href="/">Librería</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <div class="title">
+        <h1> BIENVENIDO A TU LIBRERIA</h1>
+    </div>
+
+
+    <section>
+        <div class="container_login">
+            <h2 class="display-4">Ingresá a tu librería</h2>
+            <form action="/logincheck" method="POST">
+                <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                <p th:if="${logout != null}" th:text="${logout}" style="color:rgb(0, 0, 0)"></p>
+
+                <label>E-Mail</label>
+                <input type="email" class="form-control" name="username" />
+
+                <label>Clave</label>
+                <input type="password" class="form-control" name="password" />
+
+                <br /><button type="submit" class="btn-libro">Ingresar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- JS Bootstrap -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

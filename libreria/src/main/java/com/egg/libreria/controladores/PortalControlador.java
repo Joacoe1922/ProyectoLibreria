@@ -4,6 +4,7 @@ import com.egg.libreria.errores.ErrorServicio;
 import com.egg.libreria.servicios.UsuarioServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,21 +22,23 @@ public class PortalControlador {
     @GetMapping("/")
     public String index() {
         return "index";
+    }    
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+    @GetMapping("/inicio")
+    public String inicio() {
+        return "inicio.html";
     }
 
-    @GetMapping("/libro")
-    public String libro() {
-        return "libro";
-    }
-
-    @GetMapping("/autor")
-    public String autor() {
-        return "autor";
-    }
-
-    @GetMapping("/editorial")
-    public String editorial() {
-        return "editorial";
+    @GetMapping("/login")
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model) {
+        if (error != null) {
+            model.put("error", "Usuario o clave incorrectos");
+        }
+        if (logout != null) {
+            model.put("logout", "Ha salido correctamente.");
+        }
+        return "login.html";
     }
 
     @GetMapping("/registro")

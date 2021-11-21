@@ -127,3 +127,37 @@ h2 {
 .contenedor_logo a {
 	padding-left: 5px;
 }
+
+.container_login {
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+	max-width: 700px;
+	background-color: #d9eaf0;    
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+	border-radius: 30px;
+}
+
+.container_login form {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.container_registrologin {
+	display: block;
+	margin: auto;
+	margin-top: 200px;
+	max-width: 700px;
+	background-color: #d9eaf0;    
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+	border-radius: 30px;
+}
+
+.container_registrologin .btn-libro {
+	margin-left: 25px;
+	margin-right: 25px;
+}
