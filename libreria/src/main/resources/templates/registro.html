@@ -22,13 +22,13 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="contenedor_logo container-fluid">
         <img src="./img/libro_logo.png" alt="" width="40">
-        <a class="navbar-brand" href="/">Librería</a>        
+        <a class="navbar-brand" href="/">Librería</a>
       </div>
       <div>
         <a href="/registro">Registrar</a>
         <a href="/">Login</a>
       </div>
-    </nav>  
+    </nav>
   </div>
 
   <div class="title">
@@ -38,50 +38,50 @@
   <div class="formulario">
     <h2>REGISTRAR</h2>
     <form th:action="@{/registro}" method="POST">
-        <div class="mb-2">
-            <label for="documento" class="form-label">DOCUMENTO</label>
-            <input type="text" class="form-control" id="documento" name="documento" placeholder="Ingrese el documento">
-        </div>
+      <div class="mb-2">
+        <label for="documento" class="form-label">DOCUMENTO</label>
+        <input type="text" class="form-control" id="documento" name="documento" placeholder="Ingrese el documento">
+      </div>
 
-        <div class="mb-2">
-            <label for="nombre" class="form-label">NOMBRE</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre">
-        </div>
+      <div class="mb-2">
+        <label for="nombre" class="form-label">NOMBRE</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre">
+      </div>
 
-        <div class="mb-2">
-            <label for="apellido" class="form-label">APELLIDO</label>
-            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese el apellido">
-        </div>
+      <div class="mb-2">
+        <label for="apellido" class="form-label">APELLIDO</label>
+        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese el apellido">
+      </div>
 
-        <div class="mb-2">
-            <label for="mail" class="form-label">MAIL</label>
-            <input type="email" class="form-control" id="mail" name="mail" placeholder="Ingrese el mail">
-        </div>
+      <div class="mb-2">
+        <label for="mail" class="form-label">MAIL</label>
+        <input type="email" class="form-control" id="mail" name="mail" placeholder="Ingrese el mail">
+      </div>
 
-        <div class="mb-2">
-            <label for="telefono" class="form-label">TELEFONO</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
-        </div>
+      <div class="mb-2">
+        <label for="telefono" class="form-label">TELEFONO</label>
+        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
+      </div>
 
-        <div class="mb-2">
-            <label for="clave1" class="form-label">CLAVE</label>
-            <input type="password" class="form-control" id="clave1" name="clave1" placeholder="Ingrese la clave">
-        </div>
+      <div class="mb-2">
+        <label for="clave1" class="form-label">CLAVE</label>
+        <input type="password" class="form-control" id="clave1" name="clave1" placeholder="Ingrese la clave">
+      </div>
 
-        <div class="mb-2">
-            <label for="clave2" class="form-label">REPETIR CLAVE</label>
-            <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Ingrese la clave nuevamente">
-        </div>
-           
-        <button type="submit" class="btn-libro">Enviar</button>
+      <div class="mb-2">
+        <label for="clave2" class="form-label">REPETIR CLAVE</label>
+        <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Ingrese la clave nuevamente">
+      </div>
+
+      <button type="submit" class="btn-libro">Enviar</button>
     </form>
-</div>
-
-<div class="row py-lg-5">
-  <div class="col col-lg-6 col-md-8">
-      <input class="btn-libro" type="button" value="Volver" onClick="history.go(-1);">            
   </div>
-</div>
+
+  <div class="row py-lg-5">
+    <div class="col col-lg-6 col-md-8">
+      <input class="btn-libro" type="button" value="Volver" onClick="history.go(-1);">
+    </div>
+  </div>
 
   <!-- JS Bootstrap -->
   <script src="./js/bootstrap.bundle.min.js"></script>
