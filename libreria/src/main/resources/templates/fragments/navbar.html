@@ -18,8 +18,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/libro/registrolibro">Crear libro</a></li>
-              <li><a class="dropdown-item" href="/libro/lista-libros">Listar libros</a></li>
-              <!--<li><hr class="dropdown-divider"></li>-->
+              <li><a class="dropdown-item" href="/libro/lista-libros">Listar libros</a></li>              
             </ul>
           </li>
 
@@ -42,12 +41,16 @@
               <li><a class="dropdown-item" href="/editorial/lista-editoriales">Listar editoriales</a></li>
             </ul>
           </li>
+          <li>
+            <form th:action="@{/libro/librobuscado}" method="POST" class="buscador d-flex">
+              <input class="form-control me-2" type="text" id="titulo" name="titulo" placeholder="Buscar por título" aria-label="Buscar">
+              <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+          </li>
           
         </ul>
-        <form th:action="@{/libro/librobuscado}" method="POST" class="d-flex">
-          <input class="form-control me-2" type="text" id="titulo" name="titulo" placeholder="Buscar" aria-label="Buscar">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
+        
+        <a th:href="@{/usuario/editar-perfil(id=__${session.usuariosession.id}__)}" th:if="${session.usuariosession != null}"class="nav-link">Configura tu perfil</a>
       </div>
       <a class="nav-link" href="/logout" th:if="${session.usuariosession != null}" >SALIR</a>
     </div>

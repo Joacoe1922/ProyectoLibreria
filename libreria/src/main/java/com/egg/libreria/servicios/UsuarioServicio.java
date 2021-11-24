@@ -2,6 +2,7 @@ package com.egg.libreria.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +32,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void registrar(long documento, String nombre, String apellido, String mail, String telefono, String clave,
             String clave2) throws ErrorServicio {
-        
+
         validar(documento, nombre, apellido, mail, telefono, clave, clave2);
 
         Usuario usuario = new Usuario();
@@ -48,6 +49,78 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    @Transactional
+    public void modificar(String id, long documento, String nombre, String apellido, String mail, String telefono,
+            String clave, String clave2) throws ErrorServicio {
+        validar(documento, nombre, apellido, mail, telefono, clave, clave2);
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            usuario.setDocumento(documento);
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setMail(mail);
+            usuario.setTelefono(telefono);
+
+            String encriptada = new BCryptPasswordEncoder().encode(clave);
+            usuario.setClave(encriptada);
+            usuario.setAlta(true);
+
+            usuarioRepositorio.save(usuario);
+        } else {
+            throw new ErrorServicio("No se encontró el usuario solicitado");
+        }
+
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario buscarPorId(String id) throws ErrorServicio {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+            return usuario;
+        } else {
+
+            throw new ErrorServicio("No se encontró el usuario solicitado");
+        }
+
+    }
+
+    @Transactional
+    public void deshabilitar(String id) throws ErrorServicio {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+            usuario.setAlta(false);
+            usuarioRepositorio.save(usuario);
+        } else {
+            throw new ErrorServicio("No se encontró el usuario solicitado");
+        }
+
+    }
+
+    @Transactional
+    public void habilitar(String id) throws ErrorServicio {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+            usuario.setAlta(true);
+            usuarioRepositorio.save(usuario);
+        } else {
+            throw new ErrorServicio("No se encontró el usuario solicitado");
+        }
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorMail(mail);
@@ -61,7 +134,7 @@ public class UsuarioServicio implements UserDetailsService {
             // SimpleGrantedAuthority("ROL_USUARIO_ADMINISTRADOR");
             // permisos.add(p2);
 
-            //Esto me permite guardar el OBJETO USUARIO LOG, para luego ser utilizado
+            // Esto me permite guardar el OBJETO USUARIO LOG, para luego ser utilizado
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attr.getRequest().getSession(true);
             session.setAttribute("usuariosession", usuario);

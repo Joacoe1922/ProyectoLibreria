@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Librería - Libro</title>
+    <!-- CSS Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="shortcut icon" th:href="@{/img/libro_logo.png}" />
+</head>
+
+<body>
+    <header>
+        <div class="container_header">
+            <span>Contacto:</span> +549 (261) 000 0000
+        </div>
+    </header>
+    <div class="contenedor_nav">
+        <!-- Navigation -->
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+    </div>
+
+    <div class="formulario">
+        <h2 class="display-4">Actualiza tu perfil</h2>
+        <form action="/usuario/actualizar-perfil" method="POST" enctype="multipart/form-data">
+
+
+            <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
+
+            <input type="hidden" name="id" th:value="${perfil.id}" />
+
+            <label>DOCUMENTO</label>
+            <input type="text" class="form-control" name="documento" th:value="${perfil.documento}" />
+
+            <label>NOMBRE</label>
+            <input type="text" class="form-control" name="nombre" th:value="${perfil.nombre}" />
+
+            <label>APELLIDO</label>
+            <input type="text" class="form-control" name="apellido" th:value="${perfil.apellido}" />
+
+            <label>E-MAIL</label>
+            <input type="email" class="form-control" name="mail" th:value="${perfil.mail}" />
+
+            <label>TELEFONO</label>
+            <input type="text" class="form-control" name="telefono" th:value="${perfil.telefono}" />
+
+            <label>CLAVE</label>
+            <input type="password" class="form-control" name="clave1" th:value="${clave1}" />
+
+            <label>REPETIR CLAVE</label>
+            <input type="password" class="form-control" name="clave2" th:value="${clave2}" />
+
+            <br /><button type="submit" class="btn-libro">Actualizar Perfil</button>
+        </form>
+
+    </div>
+
+    <div class="row py-lg-5">
+        <div class="col col-lg-6 col-md-8">
+            <input class="btn-libro" type="button" value="Volver" onClick="history.go(-1);">
+        </div>
+    </div>
+
+    <!-- JS Bootstrap -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

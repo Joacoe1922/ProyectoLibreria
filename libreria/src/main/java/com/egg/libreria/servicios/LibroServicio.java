@@ -106,7 +106,9 @@ public class LibroServicio {
     }
 
     @Transactional(readOnly = true)
+    //Este cambio es para que me busque libros que "contengan" lo que ingrese al buscador por parte del nombre
     public List<Libro> buscarPorNombre(String titulo) {
+        titulo = "%"+titulo+"%";
         return libroRepositorio.buscarPorNombre(titulo);
     }
 

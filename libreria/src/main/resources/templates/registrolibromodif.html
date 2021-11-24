@@ -44,25 +44,25 @@
     <h2>MODIFICAR LIBRO</h2>
     <form th:action="@{/libro/registrolibromodif/__${libro.id}__}" method="POST">
       <input hidden th:value="${id}" name="id">
+
       <div class="mb-2">
         <label for="isbn" class="form-label">ISBN</label>
-        <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Ingrese el ISBN">
+        <input type="text" class="form-control" id="isbn" name="isbn" th:value="${libro.isbn}">
       </div>
 
       <div class="mb-2">
         <label for="titulo" class="form-label">TITULO</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese el título">
+        <input type="text" class="form-control" id="titulo" name="titulo" th:value="${libro.titulo}">
       </div>
 
       <div class="mb-2">
         <label for="anio" class="form-label">AÑO</label>
-        <input type="number" class="form-control" id="anio" name="anio" placeholder="Ingrese el año">
+        <input type="number" class="form-control" id="anio" name="anio" th:value="${libro.anio}">
       </div>
 
       <div class="mb-2">
         <label for="ejemplares" class="form-label">EJEMPLARES</label>
-        <input type="number" class="form-control" id="ejemplares" name="ejemplares"
-          placeholder="Ingrese la cantidad de ejemplares">
+        <input type="number" class="form-control" id="ejemplares" name="ejemplares" th:value="${libro.ejemplares}">
       </div>
 
       <div class="mb-2">
@@ -106,7 +106,7 @@
   </div>
 
   <!-- JS Bootstrap -->
-  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -45,7 +45,7 @@
       <input hidden th:value="${id}" name="id">
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre">
+        <input type="text" class="form-control" id="nombre" name="nombre" th:value="${editorial.nombre}">
       </div>
 
       <button type="submit" class="btn-libro">Enviar</button>
@@ -59,7 +59,7 @@
   </div>
 
   <!-- JS Bootstrap -->
-  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
