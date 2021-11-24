@@ -62,6 +62,7 @@ public class LibroServicio {
             libro.setTitulo(titulo);
             libro.setAnio(anio);
             libro.setEjemplares(ejemplares);
+            libro.setEjemplaresRestantes(libro.getEjemplares() - libro.getEjemplaresPrestados());
 
             Autor a = autorRepositorio.buscarPorNombre(autor);
             Editorial e = editorialRepositorio.buscarPorNombre(editorial);
@@ -110,6 +111,11 @@ public class LibroServicio {
     public List<Libro> buscarPorNombre(String titulo) {
         titulo = "%"+titulo+"%";
         return libroRepositorio.buscarPorNombre(titulo);
+    }
+
+    @Transactional(readOnly = true)
+    public Libro buscarSolotitulo(String titulo) {
+        return libroRepositorio.buscarSolotitulo(titulo);
     }
 
     @Transactional(readOnly = true)

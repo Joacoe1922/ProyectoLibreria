@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,9 +21,9 @@ public class Prestamo {
     private Date fechaDevolucion;
     private Boolean alta;
 
-    @OneToOne
+    @ManyToOne
     private Libro libro;
-    @OneToOne
+    @ManyToOne
     private Usuario usuario;
 
     public String getId() {

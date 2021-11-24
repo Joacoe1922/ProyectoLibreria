@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Librería - Autor</title>
-  <!-- CSS Bootstrap -->
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<!-- Head -->
+<head th:replace="/fragments/head :: head"></head>
 
 <body>
-  <header>
-    <div class="container_header">
-      <span>Contacto:</span> +549 (261) 000 0000
-    </div>
-  </header>
+  <!-- Header -->
+  <header th:replace="/fragments/header :: header"></header>
+
   <div class="contenedor_nav">
     <!-- Navigation -->
     <nav th:replace="/fragments/navbar :: nav"></nav>
@@ -58,7 +49,7 @@
   </div>
 
   <!-- JS Bootstrap -->
-  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script th:replace="/fragments/bootsjs :: script"></script>
 </body>
 
 </html>

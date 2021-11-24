@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Librería</title>
-  <!-- CSS Bootstrap -->
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-  <link rel="shortcut icon" th:href="@{/img/libro_logo.png}" />
-</head>
+<!-- Head -->
+<head th:replace="/fragments/head :: head"></head>
 
 <body>
-  <header>
-    <div class="container_header">
-      <span>Contacto:</span> +549 (261) 000 0000
-    </div>
-  </header>
+  <!-- Header -->
+  <header th:replace="/fragments/header :: header"></header>
+
   <div class="contenedor_nav">
     <!-- Navigation -->
     <nav th:replace="/fragments/navbar :: nav"></nav>
   </div>
 
   <div class="title">
-    <h2> BIENVENID@  </h2>
-    <h2 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h2>
+    <h2> BIENVENID@ </h2>
+    <h2 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}"
+      th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h2>
   </div>
 
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -50,17 +41,8 @@
     </button>
   </div>
 
-  <div class="container container-fluid">
-    <a th:href="@{/inicio/libro}" class="btn-libro">Libro</a>
-    <a th:href="@{/inicio/autor}" class="btn-libro">Autor</a>
-    <a th:href="@{/inicio/editorial}" class="btn-libro">Editorial</a>
-  </div>
-
-
-
-
   <!-- JS Bootstrap -->
-  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script th:replace="/fragments/bootsjs :: script"></script>
 </body>
 
 </html>

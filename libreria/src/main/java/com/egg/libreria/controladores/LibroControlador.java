@@ -8,6 +8,7 @@ import com.egg.libreria.entidades.Libro;
 import com.egg.libreria.servicios.AutorServicio;
 import com.egg.libreria.servicios.EditorialServicio;
 import com.egg.libreria.servicios.LibroServicio;
+import com.egg.libreria.servicios.PrestamoServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,6 +33,9 @@ public class LibroControlador {
 
     @Autowired
     private EditorialServicio editorialServicio;
+
+    @Autowired
+    private PrestamoServicio prestamoServicio;
 
     @GetMapping("/registrolibro")
     public String formulario(ModelMap modelo) {
@@ -133,6 +137,33 @@ public class LibroControlador {
         modelo.put("libros", libroBuscado);
 
         return "librobuscado";
+    }
+
+    @GetMapping("/prestamo")
+    public String prestamo(ModelMap modelo) {
+
+        try {
+            List<Libro> libros = libroServicio.listarTodos();
+            modelo.addAttribute("libros", libros);
+           
+        } catch (Exception e) {
+            modelo.put("error", "Error al prestar un libro");
+        }
+
+        return "prestamo";
+    }
+
+    @PostMapping("/prestamo")
+    public String prestar(ModelMap modelo, @RequestParam String titulo, @RequestParam int ejemplares) {
+
+        try {
+            prestamoServicio.crear(titulo, ejemplares);
+
+        } catch (Exception e) {
+            modelo.put("error", "Error al prestar un libro");
+        }
+
+        return "prestamo";
     }
 
 }
