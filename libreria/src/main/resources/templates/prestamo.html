@@ -33,19 +33,20 @@
 
     <div class="formulario">
         <h2>PRESTAMOS</h2>
-        <form th:action="@{/libro/prestamo}" method="POST">
-            
+        <form th:action="@{/libro/prestamo/__${id}__}" method="POST">
+            <input hidden th:value="${id}" name="id">
+
             <div class="mb-2">
 
                 <label for="libro" class="form-label">LIBRO</label>
 
-                <select name="libro" class="form-control">
+                <select name="titulo" class="form-control">
                     <option value="">---------------------Seleccione un libro---------------------</option>
-                    <option th:each="libro : ${libros}" th:value="${libro.titulo}" th:text="${libro.titulo}"></option>
+                    <option th:each="libro : ${libros}" id="titulo" name="titulo" th:value="${libro.titulo}" th:text="${libro.titulo}"></option>
                 </select>
 
             </div>
-            
+
             <div class="mb-2">
                 <label for="ejemplares" class="form-label">EJEMPLARES</label>
                 <input type="number" class="form-control" id="ejemplares" name="ejemplares"

@@ -140,30 +140,39 @@ public class LibroControlador {
     }
 
     @GetMapping("/prestamo")
-    public String prestamo(ModelMap modelo) {
-
+    public String prestamo(ModelMap modelo, @RequestParam String id) {
+        
         try {
             List<Libro> libros = libroServicio.listarTodos();
             modelo.addAttribute("libros", libros);
-           
+
+            modelo.addAttribute("id", id);
+
+            return "prestamo";
         } catch (Exception e) {
             modelo.put("error", "Error al prestar un libro");
+            
+            return "prestamo";
         }
 
-        return "prestamo";
     }
 
-    @PostMapping("/prestamo")
-    public String prestar(ModelMap modelo, @RequestParam String titulo, @RequestParam int ejemplares) {
+    @PostMapping("/prestamo/{id}")
+    public String prestar(ModelMap modelo, @PathVariable String id, @RequestParam String titulo,
+            @RequestParam int ejemplares) {
 
         try {
-            prestamoServicio.crear(titulo, ejemplares);
+            prestamoServicio.crear(id, titulo, ejemplares);
 
+            modelo.put("exito", "Préstamo realizado con éxito!");
+
+            return "prestamo";
         } catch (Exception e) {
-            modelo.put("error", "Error al prestar un libro");
+            modelo.put("error", e.getMessage());
+           
+            return "prestamo";
         }
 
-        return "prestamo";
     }
 
 }

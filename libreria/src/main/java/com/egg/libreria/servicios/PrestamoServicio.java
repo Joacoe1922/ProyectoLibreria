@@ -1,12 +1,15 @@
 package com.egg.libreria.servicios;
 
 import java.util.Date;
+import java.util.Optional;
 
 import com.egg.libreria.entidades.Libro;
 import com.egg.libreria.entidades.Prestamo;
+import com.egg.libreria.entidades.Usuario;
 import com.egg.libreria.errores.ErrorServicio;
 import com.egg.libreria.repositorios.LibroRepositorio;
 import com.egg.libreria.repositorios.PrestamoRepositorio;
+import com.egg.libreria.repositorios.UsuarioRepositorio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,26 +22,38 @@ public class PrestamoServicio {
 
     @Autowired
     private LibroRepositorio libroRepositorio;
-    
-    public void crear(String libro, int ejemplares_prestados) throws ErrorServicio {
 
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
-        Prestamo prestamo = new Prestamo();
+    public void crear(String id, String titulo, int ejemplares) throws ErrorServicio {
 
-        prestamo.setFechaPrestamo(new Date());
-        prestamo.setFechaDevolucion(new Date());
-        prestamo.setAlta(true);
+        Libro l = libroRepositorio.buscarSolotitulo(titulo);
 
-        Libro l = libroRepositorio.buscarSolotitulo(libro);
-        l.setEjemplaresPrestados(l.getEjemplaresPrestados() + ejemplares_prestados);
-        l.setEjemplaresRestantes(l.getEjemplares() - l.getEjemplaresPrestados());
+        if (l.getAlta() && l.getEjemplaresRestantes() >= ejemplares) {
+            Prestamo prestamo = new Prestamo();
 
-        prestamo.setLibro(l);
+            prestamo.setFechaPrestamo(new Date());
+            prestamo.setFechaDevolucion(null);
+            prestamo.setAlta(true);
 
-        prestamo.setUsuario(null);
-        
+            l.setEjemplaresPrestados(l.getEjemplaresPrestados() + ejemplares);
+            l.setEjemplaresRestantes(l.getEjemplares() - l.getEjemplaresPrestados());
 
-        prestamoRepositorio.save(prestamo);
+            prestamo.setLibro(l);
+
+            Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+            if (respuesta.isPresent()) {
+                Usuario u = respuesta.get();
+                prestamo.setUsuario(u);
+            } else {
+                throw new ErrorServicio("No se encontró el usuario solicitado");
+            }
+
+            prestamoRepositorio.save(prestamo);
+        } else {
+            throw new ErrorServicio("El libro está dado de baja o no quedan ejemplares");
+        }
 
     }
 

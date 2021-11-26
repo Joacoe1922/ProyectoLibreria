@@ -12,7 +12,18 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect      
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 #Que thymeleaf no guarde datos en cache
   thymeleaf:
-    cache: false 
+    cache: false
+
+  mvc:
+    format:
+      date:
+        dd/MM/yyyy
+  
+logging:
+   level:
+     org:
+       springframework:
+         web: debug

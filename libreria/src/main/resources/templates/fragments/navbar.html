@@ -19,7 +19,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/libro/registrolibro">Crear libro</a></li>
               <li><a class="dropdown-item" href="/libro/lista-libros">Listar libros</a></li>              
-              <li><a class="dropdown-item" href="/libro/prestamo">Prestamos</a></li>
+              <li><a class="dropdown-item" th:href="@{/libro/prestamo(id=__${session.usuariosession.id}__)}" th:if="${session.usuariosession != null}">Préstamos</a></li>
             </ul>
           </li>
 

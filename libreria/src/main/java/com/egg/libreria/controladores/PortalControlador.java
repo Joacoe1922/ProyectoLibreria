@@ -22,23 +22,24 @@ public class PortalControlador {
     @GetMapping("/")
     public String index() {
         return "index";
-    }    
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
     @GetMapping("/inicio")
     public String inicio() {
-        return "inicio.html";
+        return "inicio";
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model) {
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout,
+            ModelMap model) {
         if (error != null) {
             model.put("error", "Usuario o clave incorrectos");
         }
         if (logout != null) {
             model.put("logout", "Ha salido correctamente.");
         }
-        return "login.html";
+        return "login";
     }
 
     @GetMapping("/registro")
@@ -53,6 +54,11 @@ public class PortalControlador {
 
         try {
             usuarioServicio.registrar(documento, nombre, apellido, mail, telefono, clave1, clave2);
+
+            modelo.put("exito", "Bienvenido a La Librería");
+            //modelo.put("descripcion", "Tu usuario fue registrado de manera satisfactoria");
+            return "registro";
+
         } catch (ErrorServicio ex) {
             modelo.put("documento", documento);
             modelo.put("nombre", nombre);
@@ -62,11 +68,11 @@ public class PortalControlador {
             modelo.put("clave1", clave1);
             modelo.put("clave2", clave2);
 
-            return "inicio.html";
+            modelo.put("error", "El usuario no se puedo registrar con éxito");
+
+            return "registro";
         }
-        modelo.put("titulo", "Bienvenido a La Librería");
-        modelo.put("descripcion", "Tu usuario fue registrado de manera satisfactoria");
-        return "index.html";
+
     }
 
 }

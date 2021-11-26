@@ -121,6 +121,11 @@ public class UsuarioServicio implements UserDetailsService {
 
     }
 
+    @Transactional(readOnly = true)
+    public Usuario getOne(String id) {
+        return usuarioRepositorio.getById(id);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorMail(mail);
