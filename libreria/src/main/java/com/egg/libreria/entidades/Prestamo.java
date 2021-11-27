@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,8 +19,12 @@ public class Prestamo {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaPrestamo;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDevolucion;
+
     private Boolean alta;
 
     @ManyToOne

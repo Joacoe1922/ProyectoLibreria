@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import com.egg.libreria.entidades.Foto;
 import com.egg.libreria.entidades.Usuario;
 import com.egg.libreria.errores.ErrorServicio;
 import com.egg.libreria.repositorios.UsuarioRepositorio;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -29,28 +31,37 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
-    @Transactional
-    public void registrar(long documento, String nombre, String apellido, String mail, String telefono, String clave,
-            String clave2) throws ErrorServicio {
+    @Autowired
+    private FotoServicio fotoServicio;
 
-        validar(documento, nombre, apellido, mail, telefono, clave, clave2);
+    @Transactional
+    public void registrar(MultipartFile archivo, String nombre, String apellido, String email, String clave,
+            String clave2) throws ErrorServicio {
+        
+        long documento = 1;
+        String telefono = "vacío";
+
+        validar(documento, nombre, apellido, email, telefono, clave, clave2);
 
         Usuario usuario = new Usuario();
         usuario.setDocumento(documento);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
-        usuario.setMail(mail);
+        usuario.setMail(email);
         usuario.setTelefono(telefono);
 
         String encriptada = new BCryptPasswordEncoder().encode(clave);
         usuario.setClave(encriptada);
         usuario.setAlta(true);
 
+        Foto foto = fotoServicio.guardar(archivo);
+        usuario.setFoto(foto);
+
         usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    public void modificar(String id, long documento, String nombre, String apellido, String mail, String telefono,
+    public void modificar(MultipartFile archivo, String id, long documento, String nombre, String apellido, String mail, String telefono,
             String clave, String clave2) throws ErrorServicio {
         validar(documento, nombre, apellido, mail, telefono, clave, clave2);
 
@@ -68,6 +79,14 @@ public class UsuarioServicio implements UserDetailsService {
             String encriptada = new BCryptPasswordEncoder().encode(clave);
             usuario.setClave(encriptada);
             usuario.setAlta(true);
+
+            String idFoto = null;
+            if (usuario.getFoto() != null) {
+                idFoto = usuario.getFoto().getId();
+            }
+
+            Foto foto = fotoServicio.actualizar(idFoto, archivo);
+            usuario.setFoto(foto);
 
             usuarioRepositorio.save(usuario);
         } else {

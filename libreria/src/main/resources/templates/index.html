@@ -2,34 +2,76 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <!-- Head -->
+
 <head th:replace="/fragments/head :: head"></head>
 
 <body>
   <!-- Header -->
   <header th:replace="/fragments/header :: header"></header>
-  
+
+  <!-- creo que queda mejor sin esto
+
   <div class="contenedor_nav">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="contenedor_logo container-fluid">
         <img src="./img/libro_logo.png" alt="" width="40">
         <a class="navbar-brand" href="/">Librería</a>
-      </div>
-      <div>
-        <a href="/registro">Registrar</a>
-        <a href="/login">Login</a>
-      </div>
+      </div>      
     </nav>
   </div>
+-->
 
   <div class="title">
     <h1> BIENVENIDO A TU LIBRERIA</h1>
   </div>
+
+  <div th:if="${exito}!=null" class="card text-white bg-success">
+    <div class="card-body">
+      <h5 class="card-title">Exito</h5>
+      <p class="card-text" th:text="${exito}"></p>
+    </div>
+  </div>
+  <div th:if="${error}!=null" class="card text-white bg-danger">
+    <div class="card-body">
+      <h5 class="card-title">Error</h5>
+      <p class="card-text" th:text="${error}"></p>
+    </div>
+  </div>
   
-  <div class="container_registrologin">
-    <a href="/registro" class="btn-libro">REGISTRARSE</a>
-    <a href="/login" class="btn-libro">LOGIN</a>
+  <div class="body">
+
+    <div class="main">
+      <input type="checkbox" id="chk" aria-hidden="true">
+
+      <div class="signup">
+        <form th:action="@{/registro}" method="POST">
+          <label for="chk" aria-hidden="true">Sign up</label>
+          <input type="text" name="nombre" placeholder="Nombre" required="">
+          <input type="text" name="apellido" placeholder="Apellido" required="">
+          <input type="email" name="email" placeholder="Email" required="">
+          <input type="password" name="clave1" placeholder="Password" required="">
+          <input type="password" name="clave2" placeholder="Repita Password" required="">
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
+
+      <div class="login">
+        <form action="/logincheck" method="POST">
+          
+
+          <label for="chk" aria-hidden="true">Login</label>
+          <input type="email" name="username" placeholder="Email" required="">
+          <input type="password" name="password" placeholder="Password" required="">
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
   </div>
 
+  <!-- Footer -->
+  <div class="footer-basic">
+    <footer th:replace="/fragments/footer :: footer"></footer>
+  </div>
 
   <!-- JS Bootstrap -->
   <script th:replace="/fragments/bootsjs :: script"></script>

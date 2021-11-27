@@ -19,7 +19,7 @@ public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter {
                 .permitAll()                
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .loginProcessingUrl("/logincheck")
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -27,7 +27,7 @@ public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and().logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
+                .logoutSuccessUrl("/?logout")
                 .permitAll()
                 .and().csrf().disable();
     }

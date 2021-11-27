@@ -20,7 +20,14 @@ public class PortalControlador {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/")
-    public String index() {
+    public String index(@RequestParam(required = false) String error, @RequestParam(required = false) String logout,
+            ModelMap model) {
+        if (error != null) {
+            model.put("error", "Usuario o clave incorrectos");            
+        }
+        if (logout != null) {
+            model.put("logout", "Ha salido correctamente.");
+        }
         return "index";
     }
 
@@ -30,47 +37,50 @@ public class PortalControlador {
         return "inicio";
     }
 
-    @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout,
-            ModelMap model) {
-        if (error != null) {
-            model.put("error", "Usuario o clave incorrectos");
-        }
-        if (logout != null) {
-            model.put("logout", "Ha salido correctamente.");
-        }
-        return "login";
-    }
-
-    @GetMapping("/registro")
-    public String registro() {
-        return "registro";
-    }
-
+    /*
+     * @GetMapping("/login")
+     * public String login(@RequestParam(required = false) String
+     * error, @RequestParam(required = false) String logout,
+     * ModelMap model) {
+     * if (error != null) {
+     * model.put("error", "Usuario o clave incorrectos");
+     * }
+     * if (logout != null) {
+     * model.put("logout", "Ha salido correctamente.");
+     * }
+     * return "login";
+     * }
+     * 
+     * @GetMapping("/registro")
+     * public String registro() {
+     * return "registro";
+     * }
+     */
     @PostMapping("/registro")
-    public String registrar(ModelMap modelo, @RequestParam long documento, @RequestParam String nombre,
-            @RequestParam String apellido, @RequestParam String mail, @RequestParam String telefono,
+    public String registrar(ModelMap modelo, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam String email,
             @RequestParam String clave1, @RequestParam String clave2) {
 
         try {
-            usuarioServicio.registrar(documento, nombre, apellido, mail, telefono, clave1, clave2);
+            usuarioServicio.registrar(null, nombre, apellido, email, clave1, clave2);
 
             modelo.put("exito", "Bienvenido a La Librería");
-            //modelo.put("descripcion", "Tu usuario fue registrado de manera satisfactoria");
-            return "registro";
+            // modelo.put("descripcion", "Tu usuario fue registrado de manera
+            // satisfactoria");
+            return "index";
 
         } catch (ErrorServicio ex) {
-            modelo.put("documento", documento);
+            // modelo.put("documento", documento);
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
-            modelo.put("mail", mail);
-            modelo.put("telefono", telefono);
+            modelo.put("mail", email);
+            // modelo.put("telefono", telefono);
             modelo.put("clave1", clave1);
             modelo.put("clave2", clave2);
 
             modelo.put("error", "El usuario no se puedo registrar con éxito");
 
-            return "registro";
+            return "index";
         }
 
     }

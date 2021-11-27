@@ -3,6 +3,7 @@ package com.egg.libreria.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,6 +22,17 @@ public class Usuario {
     private String telefono;
     private Boolean alta;
     private String clave;
+
+    @OneToOne
+    private Foto foto;
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
 
     public String getMail() {
         return mail;
