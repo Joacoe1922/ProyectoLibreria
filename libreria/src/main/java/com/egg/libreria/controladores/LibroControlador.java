@@ -5,6 +5,7 @@ import java.util.List;
 import com.egg.libreria.entidades.Autor;
 import com.egg.libreria.entidades.Editorial;
 import com.egg.libreria.entidades.Libro;
+import com.egg.libreria.entidades.Prestamo;
 import com.egg.libreria.servicios.AutorServicio;
 import com.egg.libreria.servicios.EditorialServicio;
 import com.egg.libreria.servicios.LibroServicio;
@@ -120,7 +121,7 @@ public class LibroControlador {
         try {
             libroServicio.modificar(id, isbn, titulo, anio, ejemplares, autor, editorial);
 
-            modelo.put("exito", "Modificacion exitosa");
+            modelo.put("exito", "Modificación exitosa");
 
             return "redirect:/libro/lista-libros";
         } catch (Exception e) {
@@ -141,7 +142,7 @@ public class LibroControlador {
 
     @GetMapping("/prestamo")
     public String prestamo(ModelMap modelo, @RequestParam String id) {
-        
+
         try {
             List<Libro> libros = libroServicio.listarTodos();
             modelo.addAttribute("libros", libros);
@@ -151,28 +152,58 @@ public class LibroControlador {
             return "prestamo";
         } catch (Exception e) {
             modelo.put("error", "Error al prestar un libro");
-            
+
             return "prestamo";
         }
 
     }
 
     @PostMapping("/prestamo/{id}")
-    public String prestar(ModelMap modelo, @PathVariable String id, @RequestParam String titulo,
-            @RequestParam int ejemplares) {
+    public String prestar(ModelMap modelo, @PathVariable String id, @RequestParam String titulo) {
 
         try {
-            prestamoServicio.crear(id, titulo, ejemplares);
+            prestamoServicio.prestar(id, titulo);
 
             modelo.put("exito", "Préstamo realizado con éxito!");
+
+            List<Libro> libros = libroServicio.listarTodos();
+            modelo.addAttribute("libros", libros);
+
+            modelo.addAttribute("id", id);
 
             return "prestamo";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
-           
+
             return "prestamo";
+        }
+    }
+
+    @GetMapping("/lista-prestamos")
+    public String listarPrestamos(ModelMap modelo) {
+
+        List<Prestamo> prestamos = prestamoServicio.listarTodosOrdenadosPorFechaDePrestamo();
+
+        modelo.addAttribute("prestamos", prestamos);
+
+        return "lista-prestamos";
+    }
+
+    @GetMapping("/devolver/{id}")
+    public String devolver(ModelMap modelo, @PathVariable String id) {
+
+        try {
+            prestamoServicio.devolver(id);
+
+            return "redirect:/libro/lista-prestamos";
+        } catch (Exception e) {
+            modelo.put("error", e.getMessage());
+
+            List<Prestamo> prestamos = prestamoServicio.listarTodos();
+
+            modelo.addAttribute("prestamos", prestamos);
+            return "lista-prestamos";
         }
 
     }
-
 }

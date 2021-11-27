@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <!-- Head -->
+
 <head th:replace="/fragments/head :: head"></head>
 
 <body>
@@ -52,6 +53,11 @@
         <div class="col col-lg-6 col-md-8">
             <input class="btn-libro" type="button" value="Volver" onClick="history.go(-1);">
         </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-basic">
+        <footer th:replace="/fragments/footer :: footer"></footer>
     </div>
 
     <!-- JS Bootstrap -->

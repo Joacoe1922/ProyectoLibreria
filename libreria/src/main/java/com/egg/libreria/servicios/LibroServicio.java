@@ -62,6 +62,7 @@ public class LibroServicio {
             libro.setTitulo(titulo);
             libro.setAnio(anio);
             libro.setEjemplares(ejemplares);
+            libro.setEjemplaresPrestados(0);
             libro.setEjemplaresRestantes(libro.getEjemplares() - libro.getEjemplaresPrestados());
 
             Autor a = autorRepositorio.buscarPorNombre(autor);

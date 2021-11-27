@@ -15,7 +15,7 @@
   </div>
 
   <div class="title_libro">
-    <h3>MENU AUTOR</h3>
+    <h3>MENU LIBRO</h3>
   </div>
 
   <div th:if="${exito}!=null" class="card text-white bg-success mb-3">
@@ -24,30 +24,46 @@
       <p class="card-text" th:text="${exito}"></p>
     </div>
   </div>
+  <div th:if="${error}!=null" class="card text-white bg-danger mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Error</h5>
+      <p class="card-text" th:text="${error}"></p>
+    </div>
+  </div>
 
   <div class="contenedor_tabla">
     <table class="table table-light">
       <thead>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Nombre</th>
+          <th scope="col">Fecha Préstamo</th>
+          <th scope="col">Fecha Devolución</th>
+          <th scope="col">Libro</th>
+          <th scope="col">Usuario</th>
           <th scope="col">Alta</th>
-          <th scope="col">Editar</th>
+          <th scope="col">Devolución</th>
         </tr>
       </thead>
-      <tbody th:each="autor : ${autores}">
+      <tbody th:each="prestamo : ${prestamos}">
         <tr>
-          <td th:text="${autor.id}">id</td>
-          <td th:text="${autor.nombre}">nombre</td>
+          <td th:text="${prestamo.id}">id</td>
+          <td th:text="${prestamo.fechaPrestamo}">fecha prestamo</td>
+          <td th:text="${prestamo.fechaDevolucion}">fecha devolución</td>
+          <td th:text="${prestamo.libro.titulo}">libro</td>
+          <td th:text="${prestamo.usuario.nombre + ' ' + prestamo.usuario.apellido}">usuario</td>
           <td>
-            <i th:if="${autor.alta}" class="fas fa-circle text-success"></i>
-            <i th:unless="${autor.alta}" class="fas fa-circle" style="color:red;"></i>
+            <i th:if="${prestamo.alta}" class="fas fa-circle text-success"></i>
+            <i th:unless="${prestamo.alta}" class="fas fa-circle" style="color:red;"></i>
           </td>
+
           <td>
-            <a th:href="@{/autor/alta/__${autor.id}__}"><i class="fa fa-arrow-up"></i></a>
+            <a th:href="@{/libro/devolver/__${prestamo.id}__}"><i class="fa fa-check"></i></a>
+            <!--
             <a th:href="@{/autor/baja/__${autor.id}__}"><i class="fa fa-ban"></i></a>
             <a th:href="@{/autor/registro-autormodif/__${autor.id}__}"><i class="fa fa-feather-alt"></i></a>
+            -->
           </td>
+
         </tr>
 
       </tbody>

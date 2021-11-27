@@ -42,15 +42,10 @@
 
                 <select name="titulo" class="form-control">
                     <option value="">---------------------Seleccione un libro---------------------</option>
-                    <option th:each="libro : ${libros}" id="titulo" name="titulo" th:value="${libro.titulo}" th:text="${libro.titulo}"></option>
+                    <option th:each="libro : ${libros}" id="titulo" name="titulo" th:value="${libro.titulo}"
+                        th:text="${libro.titulo}"></option>
                 </select>
 
-            </div>
-
-            <div class="mb-2">
-                <label for="ejemplares" class="form-label">EJEMPLARES</label>
-                <input type="number" class="form-control" id="ejemplares" name="ejemplares"
-                    placeholder="Ingrese la cantidad de ejemplares">
             </div>
 
             <button type="submit" class="btn-libro">Enviar</button>
@@ -61,6 +56,11 @@
         <div class="col col-lg-6 col-md-8">
             <input class="btn-libro" type="button" value="Volver" onClick="history.go(-1)">
         </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-basic">
+        <footer th:replace="/fragments/footer :: footer"></footer>
     </div>
 
     <!-- JS Bootstrap -->

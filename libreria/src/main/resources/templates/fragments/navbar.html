@@ -18,8 +18,9 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/libro/registrolibro">Crear libro</a></li>
-              <li><a class="dropdown-item" href="/libro/lista-libros">Listar libros</a></li>              
+              <li><a class="dropdown-item" href="/libro/lista-libros">Lista libros</a></li>              
               <li><a class="dropdown-item" th:href="@{/libro/prestamo(id=__${session.usuariosession.id}__)}" th:if="${session.usuariosession != null}">Préstamos</a></li>
+              <li><a class="dropdown-item" href="/libro/lista-prestamos">Lista préstamos</a></li>
             </ul>
           </li>
 
@@ -29,7 +30,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/autor/registro-autor">Crear autor</a></li>
-              <li><a class="dropdown-item" href="/autor/lista-autores">Listar autores</a></li>
+              <li><a class="dropdown-item" href="/autor/lista-autores">Lista autores</a></li>
             </ul>
           </li>
 
@@ -39,7 +40,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/editorial/registro-editorial">Crear editorial</a></li>
-              <li><a class="dropdown-item" href="/editorial/lista-editoriales">Listar editoriales</a></li>
+              <li><a class="dropdown-item" href="/editorial/lista-editoriales">Lista editoriales</a></li>
             </ul>
           </li>
           <li>
