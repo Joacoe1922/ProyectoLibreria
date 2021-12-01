@@ -36,26 +36,7 @@ public class PortalControlador {
     public String inicio() {
         return "inicio";
     }
-
-    /*
-     * @GetMapping("/login")
-     * public String login(@RequestParam(required = false) String
-     * error, @RequestParam(required = false) String logout,
-     * ModelMap model) {
-     * if (error != null) {
-     * model.put("error", "Usuario o clave incorrectos");
-     * }
-     * if (logout != null) {
-     * model.put("logout", "Ha salido correctamente.");
-     * }
-     * return "login";
-     * }
-     * 
-     * @GetMapping("/registro")
-     * public String registro() {
-     * return "registro";
-     * }
-     */
+    
     @PostMapping("/registro")
     public String registrar(ModelMap modelo, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam String email,
@@ -65,16 +46,13 @@ public class PortalControlador {
             usuarioServicio.registrar(null, nombre, apellido, email, clave1, clave2);
 
             modelo.put("exito", "Bienvenido a La Librería");
-            // modelo.put("descripcion", "Tu usuario fue registrado de manera
-            // satisfactoria");
+
             return "index";
 
         } catch (ErrorServicio ex) {
-            // modelo.put("documento", documento);
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
             modelo.put("mail", email);
-            // modelo.put("telefono", telefono);
             modelo.put("clave1", clave1);
             modelo.put("clave2", clave2);
 
