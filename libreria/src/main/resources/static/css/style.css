@@ -328,3 +328,7 @@ h2 {
 	font-weight: bold;
 	color: rgb(223, 23, 23);
 }
+
+.carousel-item {
+	display: inline-block;
+}
