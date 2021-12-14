@@ -4,7 +4,12 @@ spring:
     url: jdbc:mysql://localhost:3306/libreria?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: f205838980a555
+    password: 882c7f4120c1a0
 #Configuración Creación de tablas (Hibernate)
   jpa:
     show-sql: true

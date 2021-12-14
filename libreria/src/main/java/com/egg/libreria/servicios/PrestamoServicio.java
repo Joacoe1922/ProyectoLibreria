@@ -28,6 +28,9 @@ public class PrestamoServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    @Autowired
+    private NotificacionServicio notificacionServicio;
+
     @Transactional
     public void prestar(String id, String titulo) throws ErrorServicio {
 
@@ -46,14 +49,17 @@ public class PrestamoServicio {
             prestamo.setLibro(l);
 
             Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+            Usuario u = null;
             if (respuesta.isPresent()) {
-                Usuario u = respuesta.get();
+                u = respuesta.get();
                 prestamo.setUsuario(u);
             } else {
                 throw new ErrorServicio("No se encontró el usuario solicitado");
             }
 
             prestamoRepositorio.save(prestamo);
+
+            notificacionServicio.enviar("Préstamo realizado con éxito! - libro: " + prestamo.getLibro().getTitulo(), "Tu Librería - Préstamo", u.getMail());
         } else {
             throw new ErrorServicio("El libro está dado de baja o no quedan ejemplares");
         }
@@ -74,6 +80,8 @@ public class PrestamoServicio {
                 prestamo.getLibro().setEjemplaresRestantes(prestamo.getLibro().getEjemplaresRestantes() + 1);
 
                 prestamoRepositorio.save(prestamo);
+
+                notificacionServicio.enviar("Préstamo devuelto con éxito!", "Tu Librería - Préstamo", prestamo.getUsuario().getMail());
             } else {
                 throw new ErrorServicio("Ya se encuentra devuelto");
             }

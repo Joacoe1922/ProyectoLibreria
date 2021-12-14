@@ -34,6 +34,9 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private FotoServicio fotoServicio;
 
+    @Autowired
+    private NotificacionServicio notificacionServicio;
+
     @Transactional
     public void registrar(MultipartFile archivo, String nombre, String apellido, String email, String clave,
             String clave2) throws ErrorServicio {
@@ -58,6 +61,8 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFoto(foto);
 
         usuarioRepositorio.save(usuario);
+
+        notificacionServicio.enviar("Bienvenido a la librería", "Tu Librería", usuario.getMail());
     }
 
     @Transactional
